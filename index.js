@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import config from './utils/config.js';
+import logger from './utils/logger.js';
 
 const app = express();
 
@@ -16,7 +17,7 @@ const Blog = mongoose.model('Blog', blogSchema)
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl)
-console.log("Successfully connected to mongoDB");
+logger.info("Successfully connected to mongoDB");
 
 app.use(cors())
 app.use(express.json())
@@ -41,5 +42,5 @@ app.post('/api/blogs', (request, response) => {
 
 const PORT = config.PORT;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server running on port ${PORT}`);
 });
